@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://mushuying.github.io/2016/12/30/在Gulp中使用BrowserSync/index.html">
 <meta property="og:site_name" content="白小白的博客">
 <meta property="og:description" content="前端工程化的意义在于灵活、快速、高效。最近用了gulp工具管理项目，发现每次编写完Sass后还要用按F5刷新页面看效果，还是不够方便。查了一下BrowserSync好像挺靠谱的。下面介绍一下用法，涨涨经验。     BrowserSync可以同时同步刷新多个浏览器，更神奇的是你在一个浏览器中滚动页面、点击按钮、输入框中输入信息等用户行为也会同步到每个浏览器中。">
-<meta property="og:updated_time" content="2016-12-30T10:14:40.207Z">
+<meta property="og:updated_time" content="2016-12-30T10:18:02.426Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Gulp中使用BrowserSync">
 <meta name="twitter:description" content="前端工程化的意义在于灵活、快速、高效。最近用了gulp工具管理项目，发现每次编写完Sass后还要用按F5刷新页面看效果，还是不够方便。查了一下BrowserSync好像挺靠谱的。下面介绍一下用法，涨涨经验。     BrowserSync可以同时同步刷新多个浏览器，更神奇的是你在一个浏览器中滚动页面、点击按钮、输入框中输入信息等用户行为也会同步到每个浏览器中。">
@@ -166,29 +166,10 @@
 <a id="more"></a>
 <h3 id="安装browser-sync模块"><a href="#安装browser-sync模块" class="headerlink" title="安装browser-sync模块"></a>安装browser-sync模块</h3><p>   <code>npm install browser-sync -g</code></p>
 <h3 id="命令行直接使用"><a href="#命令行直接使用" class="headerlink" title="命令行直接使用"></a>命令行直接使用</h3><p>   <code>browser-sync start --server --files &quot;css/*.css&quot;</code>   使用上面命令会开启一个迷你服务器，自动帮你打开浏览器，默认地址localhost:3000，默认打开index.html，如果没有，需要手动加上你要打开的页面，如localhost:3000/test.html。<br>   通常你不会需要默认的地址，所以需要使用代理模式：<br>   <code>browser-sync start --proxy &quot;localhost:8080&quot; --files &quot;css/*.css&quot;</code></p>
-<h3 id="Browsersync-Gulp"><a href="#Browsersync-Gulp" class="headerlink" title="Browsersync + Gulp"></a>Browsersync + Gulp</h3><p>   `var gulp = require(‘gulp’),<br>            sass = require(‘gulp-ruby-sass’),<br>            autoprefixer = require(‘gulp-autoprefixer’),<br>            minifycss = require(‘gulp-minify-css’),<br>            rename = require(‘gulp-rename’),<br>            notify = require(‘gulp-notify’);</p>
-<pre><code>var browserSync = require(&apos;browser-sync&apos;).create();
-
-gulp.task(&apos;sass&apos;, function() {
-    return sass(&apos;sass/style.scss&apos;, {style: &quot;expanded&quot;})
-        //.pipe(sass({style: &quot;expanded&quot;}))
-        .pipe(autoprefixer(&apos;last 2 version&apos;, &apos;safari 5&apos;, &apos;ie 8&apos;, &apos;ie 9&apos;, &apos;opera 12.1&apos;, &apos;ios 6&apos;, &apos;android 4&apos;))
-        .pipe(rename({suffix: &apos;.min&apos;}))
-        .pipe(minifycss())
-        .pipe(gulp.dest(&apos;css&apos;))
-        .pipe(notify({ message: &apos;Styles task complete&apos; }))
-        .pipe(browserSync.stream());
-});
-
-gulp.task(&apos;serve&apos;, [&apos;sass&apos;], function() {
-    browserSync.init({
-        server: &quot;./&quot;
-    });
-
-    gulp.watch(&quot;sass/*.scss&quot;, [&apos;sass&apos;]);
+<h3 id="Browsersync-Gulp"><a href="#Browsersync-Gulp" class="headerlink" title="Browsersync + Gulp"></a>Browsersync + Gulp</h3><p>   `var gulp = require(‘gulp’),<br>            sass = require(‘gulp-ruby-sass’),<br>            autoprefixer = require(‘gulp-autoprefixer’),<br>            minifycss = require(‘gulp-minify-css’),<br>            rename = require(‘gulp-rename’),<br>            notify = require(‘gulp-notify’);<br>        var browserSync = require(‘browser-sync’).create();<br>        gulp.task(‘sass’, function() {<br>            return sass(‘sass/style.scss’, {style: “expanded”})<br>                //.pipe(sass({style: “expanded”}))<br>                .pipe(autoprefixer(‘last 2 version’, ‘safari 5’, ‘ie 8’, ‘ie 9’, ‘opera 12.1’, ‘ios 6’, ‘android 4’))<br>                .pipe(rename({suffix: ‘.min’}))<br>                .pipe(minifycss())<br>                .pipe(gulp.dest(‘css’))<br>                .pipe(notify({ message: ‘Styles task complete’ }))<br>                .pipe(browserSync.stream());<br>        });<br>        gulp.task(‘serve’, [‘sass’], function() {<br>            browserSync.init({<br>                server: “./“<br>            });</p>
+<pre><code>    gulp.watch(&quot;sass/*.scss&quot;, [&apos;sass&apos;]);
     gulp.watch(&quot;*.html&quot;).on(&apos;change&apos;, browserSync.reload);
 });
-
 gulp.task(&apos;default&apos;, [&apos;serve&apos;]);`
 
 其中
