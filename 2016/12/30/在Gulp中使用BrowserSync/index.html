@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://mushuying.github.io/2016/12/30/在Gulp中使用BrowserSync/index.html">
 <meta property="og:site_name" content="白小白的博客">
 <meta property="og:description" content="前端工程化的意义在于灵活、快速、高效。最近用了gulp工具管理项目，发现每次编写完Sass后还要用按F5刷新页面看效果，还是不够方便。查了一下BrowserSync好像挺靠谱的。下面介绍一下用法，涨涨经验。     BrowserSync可以同时同步刷新多个浏览器，更神奇的是你在一个浏览器中滚动页面、点击按钮、输入框中输入信息等用户行为也会同步到每个浏览器中。">
-<meta property="og:updated_time" content="2016-12-30T10:18:02.426Z">
+<meta property="og:updated_time" content="2016-12-30T10:20:32.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Gulp中使用BrowserSync">
 <meta name="twitter:description" content="前端工程化的意义在于灵活、快速、高效。最近用了gulp工具管理项目，发现每次编写完Sass后还要用按F5刷新页面看效果，还是不够方便。查了一下BrowserSync好像挺靠谱的。下面介绍一下用法，涨涨经验。     BrowserSync可以同时同步刷新多个浏览器，更神奇的是你在一个浏览器中滚动页面、点击按钮、输入框中输入信息等用户行为也会同步到每个浏览器中。">
@@ -193,7 +193,6 @@ gulp.task(&apos;default&apos;, [&apos;serve&apos;]);`
         .pipe(notify({ message: &apos;Styles task complete&apos; }))
         .pipe(browserSync.stream());
 });
-
 gulp.task(&apos;js&apos;, function () {
     return gulp.src(&apos;js/*js&apos;)
         .pipe(browserify())
@@ -201,17 +200,14 @@ gulp.task(&apos;js&apos;, function () {
         .pipe(gulp.dest(&apos;dist/js&apos;))
         .pipe(browserSync.stream());;
 });
-
 gulp.task(&apos;serve&apos;, [&apos;sass&apos;, &apos;js&apos;], function() {
     browserSync.init({
         server: &quot;./&quot;
     });
-
     gulp.watch(&quot;sass/*.scss&quot;, [&apos;sass&apos;]);
     gulp.watch(&quot;*.html&quot;).on(&apos;change&apos;, browserSync.reload);
     gulp.watch(&quot;js/*.js&quot;, [&apos;js&apos;])
 });
-
 gulp.task(&apos;default&apos;, [&apos;serve&apos;]);`
 </code></pre>
       
