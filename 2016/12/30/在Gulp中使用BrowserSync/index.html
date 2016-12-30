@@ -6,18 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://mushuying.github.io">
-  <title>page在Gulp中使用BrowserSync | 白小白的博客</title>
+  <title>在Gulp中使用BrowserSync | 白小白的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一只行走的文艺女程序媛，原谅我一生艰苦卓绝爱前端">
+  <meta name="description" content="前端工程化的意义在于灵活、快速、高效。最近用了gulp工具管理项目，发现每次编写完Sass后还要用按F5刷新页面看效果，还是不够方便。查了一下BrowserSync好像挺靠谱的。下面介绍一下用法，涨涨经验。
+BrowserSync可以同时同步刷新多个浏览器，更神奇的是你在一个浏览器中滚动页面、点击按钮、输入框中输入信息等用户行为也会同步到每个浏览器中。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="page在Gulp中使用BrowserSync">
-<meta property="og:url" content="https://mushuying.github.io/2016/12/30/page在Gulp中使用BrowserSync/index.html">
+<meta property="og:title" content="在Gulp中使用BrowserSync">
+<meta property="og:url" content="https://mushuying.github.io/2016/12/30/在Gulp中使用BrowserSync/index.html">
 <meta property="og:site_name" content="白小白的博客">
-<meta property="og:description" content="一只行走的文艺女程序媛，原谅我一生艰苦卓绝爱前端">
-<meta property="og:updated_time" content="2016-12-30T09:21:55.341Z">
+<meta property="og:description" content="前端工程化的意义在于灵活、快速、高效。最近用了gulp工具管理项目，发现每次编写完Sass后还要用按F5刷新页面看效果，还是不够方便。查了一下BrowserSync好像挺靠谱的。下面介绍一下用法，涨涨经验。
+BrowserSync可以同时同步刷新多个浏览器，更神奇的是你在一个浏览器中滚动页面、点击按钮、输入框中输入信息等用户行为也会同步到每个浏览器中。">
+<meta property="og:updated_time" content="2016-12-30T10:01:48.236Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="page在Gulp中使用BrowserSync">
-<meta name="twitter:description" content="一只行走的文艺女程序媛，原谅我一生艰苦卓绝爱前端">
+<meta name="twitter:title" content="在Gulp中使用BrowserSync">
+<meta name="twitter:description" content="前端工程化的意义在于灵活、快速、高效。最近用了gulp工具管理项目，发现每次编写完Sass后还要用按F5刷新页面看效果，还是不够方便。查了一下BrowserSync好像挺靠谱的。下面介绍一下用法，涨涨经验。
+BrowserSync可以同时同步刷新多个浏览器，更神奇的是你在一个浏览器中滚动页面、点击按钮、输入框中输入信息等用户行为也会同步到每个浏览器中。">
   
     <link rel="alternative" href="/atom.xml" title="白小白的博客" type="application/atom+xml">
   
@@ -144,25 +147,94 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-page在Gulp中使用BrowserSync" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-在Gulp中使用BrowserSync" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      page在Gulp中使用BrowserSync
+      在Gulp中使用BrowserSync
     </h1>
   
 
-        <a href="/2016/12/30/page在Gulp中使用BrowserSync/" class="archive-article-date">
+        <a href="/2016/12/30/在Gulp中使用BrowserSync/" class="archive-article-date">
   	<time datetime="2016-12-30T09:21:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-30</time>
 </a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <pre><code>前端工程化的意义在于灵活、快速、高效。最近用了gulp工具管理项目，发现每次编写完Sass后还要用按F5刷新页面看效果，还是不够方便。查了一下BrowserSync好像挺靠谱的。下面介绍一下用法，涨涨经验。
+BrowserSync可以同时同步刷新多个浏览器，更神奇的是你在一个浏览器中滚动页面、点击按钮、输入框中输入信息等用户行为也会同步到每个浏览器中。
+</code></pre><a id="more"></a>
+<h3 id="安装browser-sync模块"><a href="#安装browser-sync模块" class="headerlink" title="安装browser-sync模块"></a>安装browser-sync模块</h3><p>   <code>npm install browser-sync -g</code></p>
+<h3 id="命令行直接使用"><a href="#命令行直接使用" class="headerlink" title="命令行直接使用"></a>命令行直接使用</h3><p>   <code>browser-sync start --server --files &quot;css/*.css&quot;</code><br>   使用上面命令会开启一个迷你服务器，自动帮你打开浏览器，默认地址localhost:3000，默认打开index.html，如果没有，需要手动加上你要打开的页面，如localhost:3000/test.html。<br>   通常你不会需要默认的地址，所以需要使用代理模式：<br>   <code>browser-sync start --proxy &quot;localhost:8080&quot; --files &quot;css/*.css&quot;</code></p>
+<p>   ###Browsersync + Gulp<br>   `var gulp = require(‘gulp’),<br>            sass = require(‘gulp-ruby-sass’),<br>            autoprefixer = require(‘gulp-autoprefixer’),<br>            minifycss = require(‘gulp-minify-css’),<br>            rename = require(‘gulp-rename’),<br>            notify = require(‘gulp-notify’);</p>
+<pre><code>var browserSync = require(&apos;browser-sync&apos;).create();
+
+gulp.task(&apos;sass&apos;, function() {
+    return sass(&apos;sass/style.scss&apos;, {style: &quot;expanded&quot;})
+        //.pipe(sass({style: &quot;expanded&quot;}))
+        .pipe(autoprefixer(&apos;last 2 version&apos;, &apos;safari 5&apos;, &apos;ie 8&apos;, &apos;ie 9&apos;, &apos;opera 12.1&apos;, &apos;ios 6&apos;, &apos;android 4&apos;))
+        .pipe(rename({suffix: &apos;.min&apos;}))
+        .pipe(minifycss())
+        .pipe(gulp.dest(&apos;css&apos;))
+        .pipe(notify({ message: &apos;Styles task complete&apos; }))
+        .pipe(browserSync.stream());
+});
+
+gulp.task(&apos;serve&apos;, [&apos;sass&apos;], function() {
+    browserSync.init({
+        server: &quot;./&quot;
+    });
+
+    gulp.watch(&quot;sass/*.scss&quot;, [&apos;sass&apos;]);
+    gulp.watch(&quot;*.html&quot;).on(&apos;change&apos;, browserSync.reload);
+});
+
+gulp.task(&apos;default&apos;, [&apos;serve&apos;]);`
+
+其中
+
+`gulp.watch(&quot;sass/*.scss&quot;, [&apos;sass&apos;]);`
+
+会在编译完sass后，以无刷新方式更新页面。
+
+`gulp.watch(&quot;*.html&quot;).on(&apos;change&apos;, browserSync.reload);`
+会在修改html文件后刷新页面。
+如果需要在修改js后刷新页面，可以像下面这样：
+`gulp.task(&apos;sass&apos;, function() {
+    return sass(&apos;sass/style.scss&apos;, {style: &quot;expanded&quot;})
+        //.pipe(sass({style: &quot;expanded&quot;}))
+        .pipe(autoprefixer(&apos;last 2 version&apos;, &apos;safari 5&apos;, &apos;ie 8&apos;, &apos;ie 9&apos;, &apos;opera 12.1&apos;, &apos;ios 6&apos;, &apos;android 4&apos;))
+        .pipe(rename({suffix: &apos;.min&apos;}))
+        .pipe(minifycss())
+        .pipe(gulp.dest(&apos;css&apos;))
+        .pipe(notify({ message: &apos;Styles task complete&apos; }))
+        .pipe(browserSync.stream());
+});
+
+gulp.task(&apos;js&apos;, function () {
+    return gulp.src(&apos;js/*js&apos;)
+        .pipe(browserify())
+        .pipe(uglify())
+        .pipe(gulp.dest(&apos;dist/js&apos;))
+        .pipe(browserSync.stream());;
+});
+
+gulp.task(&apos;serve&apos;, [&apos;sass&apos;, &apos;js&apos;], function() {
+    browserSync.init({
+        server: &quot;./&quot;
+    });
+
+    gulp.watch(&quot;sass/*.scss&quot;, [&apos;sass&apos;]);
+    gulp.watch(&quot;*.html&quot;).on(&apos;change&apos;, browserSync.reload);
+    gulp.watch(&quot;js/*.js&quot;, [&apos;js&apos;])
+});
+
+gulp.task(&apos;default&apos;, [&apos;serve&apos;]);`
+</code></pre>
       
 
       
@@ -241,7 +313,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://mushuying.github.io/2016/12/30/page在Gulp中使用BrowserSync/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://mushuying.github.io/2016/12/30/在Gulp中使用BrowserSync/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -270,7 +342,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="page在Gulp中使用BrowserSync" data-title="page在Gulp中使用BrowserSync" data-url="https://mushuying.github.io/2016/12/30/page在Gulp中使用BrowserSync/"></div>
+	<div class="ds-thread" data-thread-key="在Gulp中使用BrowserSync" data-title="在Gulp中使用BrowserSync" data-url="https://mushuying.github.io/2016/12/30/在Gulp中使用BrowserSync/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
